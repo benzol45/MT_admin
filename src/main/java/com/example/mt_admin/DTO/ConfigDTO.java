@@ -1,6 +1,7 @@
 package com.example.mt_admin.DTO;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ConfigDTO {
     private String actualSignature;
@@ -48,5 +49,18 @@ public class ConfigDTO {
 
     public void setOmsId(String omsId) {
         OmsId = omsId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ConfigDTO configDTO = (ConfigDTO) o;
+        return Objects.equals(actualSignature, configDTO.actualSignature) && Objects.equals(OmsConnectionId, configDTO.OmsConnectionId) && Objects.equals(OmsId, configDTO.OmsId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(actualSignature, OmsConnectionId, OmsId);
     }
 }

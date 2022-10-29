@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Config</title>
+</head>
+<body>
+    <a href="/">back</a>
+    <br>
+    <br>
+    <h2>Config</h2>
+    <form method="post" action="/config/save">
+        <label for="actualSignature">eSignature</label>
+        <select id="actualSignature" name="actualSignature" th:value="${config.getActualSignature()}">
+            <option th:each="sign: ${config.getSignatures()}" th:value="${sign}" th:text="${sign}"/>
+        </select><br>
+        <br>
+        <label for="omsId">OMS ID</label>
+        <input type="text" name="omsId" id="omsId" th:value="${config.getOmsId()}"> <br>
+        ////Из ЛК -> Управление заказами -> Устройства -> OMS ID <br>
+        <br>
+        <label for="omsConnectionId">OMS Connection ID</label>
+        <input type="text" name="omsConnectionId" id="omsConnectionId" th:value="${config.getOmsConnectionId()}"> <br>
+        //Из ЛК -> Управление заказами -> Устройства -> ИДЕНТИФИКАТОР СОЕДИНЕНИЯ <br>
+        <br>
+        <br>
+        <input type="submit" name="Save">
+    </form>
+</body>
+</html>
