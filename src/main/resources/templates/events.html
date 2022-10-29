@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+</head>
+<body>
+    <a href="/">back</a>
+    <br>
+    <br>
+    <h2>Events</h2>
+    <table border="1">
+        <th></th>
+        <th>Subsystem</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Message</th>
+        <tr th:each="event: ${events}">
+            <td><a th:href="@{/event/hide/{id}(id=${event.getId()})}" th:text="hide"/></td>
+            <td th:text="${event.getSubsystem()}">
+            <td th:text="${event.getDate()}">
+            <td th:text="${event.getType()}">
+            <td th:text="${event.getMessage()}">
+        </tr>
+    </table>
+</body>
+</html>

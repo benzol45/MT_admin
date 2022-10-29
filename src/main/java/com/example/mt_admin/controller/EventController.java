@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/event")
@@ -29,5 +30,20 @@ public class EventController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //todo показ на странице и скрытие по кнопке
+    @GetMapping()
+    public String getEventsPage(Model model) {
+        List<EventDTO> eventDTOList = eventService.getAllUnhiddenEvents().stream()
+                .map(EventDTO::convertFromEvent)
+                .collect(Collectors.toList());
+
+        model.addAttribute("events", eventDTOList);
+        return "events";
+    }
+
+    @GetMapping("/hide/{id}")
+    public String hideEvent(@PathVariable("id") long id) {
+        eventService.hideEvent(id);
+
+        return "redirect:/event";
+    }
 }
